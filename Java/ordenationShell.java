@@ -13,19 +13,35 @@ public class ordenationShell {
     }
 
     public static List<Integer> ordenarShell(List<Integer> lista, int n) {
-        int intervalo = n / 2;
-        while (intervalo > 0) {
-            for (int j = intervalo; j < n; j = j + intervalo) {
-                if (lista.get(j) < lista.get(j - intervalo)) {
-                    int temp = j;
-                    int temp2 = j - intervalo;
-                    lista.set(j, lista.get(j - intervalo));
-                    lista.set(temp2, temp);
-                }
-            }
-            intervalo = intervalo/2;
-            
+        //Define o intervalo
+        int h = 1;
+        
+        //Busca o intervalo maximo
+        while (h < n / 3) {
+            h = 3 * h + 1;
         }
+        //Enqunato o intervalo for maior ou igual a 1
+        while (h >= 1) {
+
+            //Inicia o loop no index de mesmo valor do intervalo, i é o valor que queremos ordenar
+            for (int i = h; i < n; i++) {
+                //cria uma variavél que armazena o valor de i
+                int chave = lista.get(i);
+                //cria uma variavél que armazena o index de i
+                int j = i;
+                //Enquanto J for 'maior ou igual' ao valor do intervalo ou o valor contido no index anterior em relação ao intervalo
+                //for maior que o valor contido no index atual.
+                while (j >= h && lista.get(j - h) > chave) {
+                    lista.set(j, lista.get(j - h));
+                    j -= h;
+                }
+                //Atribui a posição J o valor chave
+                lista.set(j, chave);
+            }
+            //Divide o intervalo em 3
+            h = h / 3;
+        }
+        
         return lista;
     }
 
@@ -37,10 +53,9 @@ public class ordenationShell {
         System.out.println("Lista antes da ordenação:");
         System.out.println(lista);
 
-        lista = ordenarShell(lista, 10);
+        lista = ordenarShell(lista, n);
 
         System.out.println("Lista após a ordenação:");
         System.out.println(lista);
     }
-
 }
