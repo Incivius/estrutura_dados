@@ -13,17 +13,15 @@ public class ordenationMerge {
     }
     
     
- public static List<Integer> mergeSort(List<Integer> lista) {
-    if (lista.size() <= 1) {
-        return lista; // A lista já está ordenada
+ public static List<Integer> mergeSort(List<Integer> lista, int n) {
+    if (n <= 1) {
+        return lista;
     }
 
-    int meio = lista.size() / 2;
-    List<Integer> esquerda = new ArrayList<>(lista.subList(0, meio));
-    List<Integer> direita = new ArrayList<>(lista.subList(meio, lista.size()));
+    int meio = n / 2;
 
-    esquerda = mergeSort(esquerda);
-    direita = mergeSort(direita);
+    esquerda = mergeSort(esquerda, meio);
+    direita = mergeSort(direita, meio);
 
     List<Integer> resultado = new ArrayList<>();
     int i = 0;
@@ -44,6 +42,37 @@ public class ordenationMerge {
 
     return resultado;
 }
+
+// public static List<Integer> mergeSort2(List<Integer> lista) {
+//     if (lista.size() <= 1) {
+//         return lista; // A lista já está ordenada
+//     }
+
+//     int meio = lista.size() / 2;
+
+//     List<Integer> esquerda = new ArrayList<>();
+//     for (int i = 0; i < meio; i++) {
+//         esquerda.add(lista.get(i));
+//     }
+
+//     List<Integer> direita = new ArrayList<>();
+//     for (int i = meio; i < lista.size(); i++) {
+//         direita.add(lista.get(i));
+//     }
+
+//     esquerda = mergeSort(esquerda);
+//     direita = mergeSort(direita);
+
+//     List<Integer> resultado = new ArrayList<>();
+//     for (int i = 0; i < esquerda.size(); i++) {
+//         resultado.add(esquerda.get(i));
+//     }
+//     for (int i = 0; i < direita.size(); i++) {
+//         resultado.add(direita.get(i));
+//     }
+
+//     return resultado;
+// }
 
     public static void main(String[] args) {
         List<Integer> lista = new ArrayList<>();

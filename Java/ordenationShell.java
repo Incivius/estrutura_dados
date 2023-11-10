@@ -12,36 +12,106 @@ public class ordenationShell {
         return lista;
     }
 
-    public static List<Integer> ordenarShell(List<Integer> lista, int n) {
-        //Define o intervalo
+    // Inicia no intervalo e troca enquanto for verdade
+    public static List<Integer> ordenarShell1(List<Integer> lista, int n) {
         int h = 1;
-        
-        //Busca o intervalo maximo
         while (h < n / 3) {
             h = 3 * h + 1;
         }
-        //Enqunato o intervalo for maior ou igual a 1
         while (h >= 1) {
-
-            //Inicia o loop no index de mesmo valor do intervalo, i é o valor que queremos ordenar
             for (int i = h; i < n; i++) {
-                //cria uma variavél que armazena o valor de i
                 int chave = lista.get(i);
-                //cria uma variavél que armazena o index de i
                 int j = i;
-                //Enquanto J for 'maior ou igual' ao valor do intervalo ou o valor contido no index anterior em relação ao intervalo
-                //for maior que o valor contido no index atual.
                 while (j >= h && lista.get(j - h) > chave) {
                     lista.set(j, lista.get(j - h));
                     j -= h;
                 }
-                //Atribui a posição J o valor chave
                 lista.set(j, chave);
             }
-            //Divide o intervalo em 3
             h = h / 3;
         }
-        
+
+        return lista;
+    }
+
+    // Inicia no intervalo e troca se for verdade
+    public static List<Integer> ordenarShell2(List<Integer> lista, int n) {
+        int h = 1;
+        while (h < n / 3) {
+            h = 3 * h + 1;
+        }
+        while (h >= 1) {
+            for (int i = h; i < n; i++) {
+                int chave = lista.get(i);
+                int j;
+                for (j = i; (j >= h) && (lista.get(j - h) > chave); j -= h) {
+                    lista.set(j, lista.get(j - h));
+                }
+                lista.set(j, chave);
+            }
+            h = h / 3;
+        }
+        return lista;
+    }
+
+    // Inicia no primeiro index e troca enquanto for verdade
+    public static List<Integer> ordenarShell3(List<Integer> lista, int n) {
+        int h = 1;
+        while (h < n / 3) {
+            h = 3 * h + 1;
+        }
+        while (h > 0) {
+            for (int i = 0; i < n - h; i++) {
+                int chave = lista.get(i);
+                int j = i;
+                while (j < n - h && chave > lista.get(j + h)) {
+                    lista.set(j, lista.get(j + h));
+                    j += h;
+                    lista.set(j, chave);
+                }
+            }
+            h = h / 3;
+        }
+        return lista;
+    }
+
+    // Inicia no primeiro index e troca se for verdade
+    public static List<Integer> ordenarShell4(List<Integer> lista, int n) {
+        int h = 1;
+        while (h < n / 3) {
+            h = 3 * h + 1;
+        }
+        while (h > 0) {
+            for (int i = 0; i < n - h; i++) {
+                int chave = lista.get(i);
+                if (chave > lista.get(i + h)) {
+                    int temp = i + h;
+                    lista.set(i, lista.get(temp));
+                    lista.set(temp, chave);
+                }
+            }
+            h = h / 3;
+        }
+        return lista;
+    }
+
+    // Inicia no primeiro index e troca se for verdade
+    public static List<Integer> ordenarShell5(List<Integer> lista, int n) {
+        int h = 1;
+        while (h < n / 3) {
+            h = 3 * h + 1;
+        }
+        while (h >= 1) {
+            for (int i = 0; i < n - h; i++) {
+                int chave = lista.get(i);
+                int j = i + h;
+                if (chave > lista.get(j)) {
+                    lista.set(i, lista.get(j));
+                    lista.set(j, chave);
+                }
+            }
+            h = h / 3;
+        }
         return lista;
     }
 
@@ -53,7 +123,7 @@ public class ordenationShell {
         System.out.println("Lista antes da ordenação:");
         System.out.println(lista);
 
-        lista = ordenarShell(lista, n);
+        lista = ordenarShell1(lista, n);
 
         System.out.println("Lista após a ordenação:");
         System.out.println(lista);
